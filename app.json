@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.arunabhdecaf.expoandroidnativemenu"
     },
     "web": {
       "bundler": "metro",
@@ -25,6 +26,24 @@
     "plugins": [
       "expo-router",
       [
+        "react-native-edge-to-edge",
+        {
+          "android": {
+            "parentTheme": "Material3",
+            "enforceNavigationBarContrast": false
+          }
+        }
+      ],
+      [
+        "./plugins/android/withRoundedPopupMenu",
+        {
+          "lightBackgroundColor": "#FFFFFF",
+          "darkBackgroundColor": "#212121",
+          "radius": 14,
+          "paddingVertical": 8
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
@@ -32,7 +51,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true

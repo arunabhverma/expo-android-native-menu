@@ -1,37 +1,56 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "react-native";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+declare module "@react-navigation/native" {
+  export type ExtendedTheme = {
+    dark: boolean;
+    colors: {
+      primary: string;
+      background: string;
+      card: string;
+      text: string;
+      border: string;
+      notification: string;
+    };
+  };
+  export function useTheme(): ExtendedTheme;
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+  let dark = {
+    ...DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      background: "#181818",
+      card: "#181818",
+      text: "#FFFFFF",
+    },
+  };
+  let light = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: "#FDFBF7",
+      card: "#FDFBF7",
+      text: "#000000",
+    },
+  };
+  const theme = colorScheme === "dark" ? dark : light;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={theme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="myNotes" options={{ title: "Notes" }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
