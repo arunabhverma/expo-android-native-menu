@@ -1,50 +1,145 @@
-# Welcome to your Expo app 👋
+# Expo Android Native Menu Styling
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This repository provides a complete implementation for customizing the Android native menu in your Expo app. This implementation is highly inspired by [this solution](https://github.com/react-native-menu/menu/issues/58#issuecomment-806530467) for styling Android popup menus.
 
-## Get started
+## Demo
 
-1. Install dependencies
+| Android                                                                  |
+| ------------------------------------------------------------------------ |
+| https://github.com/yourusername/expo-android-native-menu/assets/demo.mp4 |
 
-   ```bash
-   npm install
-   ```
+## Compatibility
 
-2. Start the app
+This plugin is compatible with:
 
-   ```bash
-    npx expo start
-   ```
+- [Zeego](https://zeego.dev/) - Beautiful, native menus for React Native + Web
+- [@react-native-menu/menu](https://github.com/react-native-menu/menu) - UIMenu Component for React Native
 
-In the output, you'll find options to open the app in a
+The plugin enhances the native Android menu appearance while maintaining compatibility with these popular menu libraries.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Quick Start
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone this repository:
 
 ```bash
-npm run reset-project
+git clone https://github.com/yourusername/expo-android-native-menu.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Copy the following directories/files to your Expo project:
 
-## Learn more
+   - `plugins/` directory - Contains the config plugin implementation
+   - `app.json` - Contains the plugin configuration
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Install the required dependencies in your project:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+4. Add the plugin to your `app.json` or `app.config.js`:
 
-Join our community of developers creating universal apps.
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-android-native-menu",
+        {
+          "radius": 14,
+          "lightBackgroundColor": "#FFFFFF",
+          "darkBackgroundColor": "#000000",
+          "paddingVertical": 14,
+          "paddingHorizontal": 0
+        }
+      ]
+    ]
+  }
+}
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Project Structure
+
+```
+expo-android-native-menu/
+├── plugins/                # Config plugin implementation
+│   └── android/            # Android-specific plugins
+│       └── withRoundedPopupMenu.js  # Main plugin file
+├── app.json               # Plugin configuration
+└── package.json           # Project dependencies
+```
+
+## Configuration Options
+
+The plugin accepts the following configuration options:
+
+| Option               | Type   | Default   | Description                                                                                                                                                                                                           |
+| -------------------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| radius               | number | 14        | Border radius in dp                                                                                                                                                                                                   |
+| lightBackgroundColor | string | "#FFFFFF" | Background color for light theme                                                                                                                                                                                      |
+| darkBackgroundColor  | string | "#000000" | Background color for dark theme                                                                                                                                                                                       |
+| paddingVertical      | number | 14        | Vertical padding in dp                                                                                                                                                                                                |
+| paddingHorizontal    | number | 0         | Horizontal padding in dp. Note: Keep this at 0 to maintain the native Android ripple effect. Adding horizontal padding will create a visible gap between the ripple effect and the menu edge when an item is pressed. |
+
+## Implementation Details
+
+### Config Plugin
+
+The config plugin (`plugins/android/withRoundedPopupMenu.js`) handles:
+
+- Creating rounded popup menu backgrounds for both light and dark themes
+- Applying custom padding to menu items
+- Setting up the necessary drawable resources
+
+## Usage
+
+1. After copying the files and adding the configuration, rebuild your app:
+
+```bash
+npx expo prebuild
+```
+
+2. Run your app:
+
+```bash
+npx expo run:android
+```
+
+## Example Configuration
+
+Here's a complete example of how to configure the plugin in your `app.config.js`:
+
+```javascript
+export default {
+  expo: {
+    name: "your-app-name",
+    // ... other expo config
+    plugins: [
+      [
+        "expo-android-native-menu",
+        {
+          radius: 14,
+          lightBackgroundColor: "#FFFFFF",
+          darkBackgroundColor: "#000000",
+          paddingVertical: 14,
+          paddingHorizontal: 0,
+        },
+      ],
+    ],
+  },
+};
+```
+
+## Notes
+
+- This implementation only affects the Android native menu appearance
+- Changes require a rebuild of your app
+- Make sure to test your menu styling on different Android versions and screen sizes
+- Horizontal padding is 0 by default to keep the native Android ripple effect clean, adding padding would make the gap visible when tapping.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
