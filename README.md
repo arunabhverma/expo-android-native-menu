@@ -6,7 +6,8 @@ This repository provides a complete implementation for customizing the Android n
 
 | Android                                                                  |
 | ------------------------------------------------------------------------ |
-| https://github.com/yourusername/expo-android-native-menu/assets/demo.mp4 |
+| <video src="https://github.com/user-attachments/assets/0319af69-b631-4348-a78a-2d936e792372" /> |
+
 
 ## Compatibility
 
