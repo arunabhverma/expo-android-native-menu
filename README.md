@@ -4,10 +4,9 @@ This repository provides a complete implementation for customizing the Android n
 
 ## Demo
 
-| Android                                                                  |
-| ------------------------------------------------------------------------ |
+| Android                                                                                         |
+| ----------------------------------------------------------------------------------------------- |
 | <video src="https://github.com/user-attachments/assets/0319af69-b631-4348-a78a-2d936e792372" /> |
-
 
 ## Compatibility
 
@@ -15,8 +14,6 @@ This plugin is compatible with:
 
 - [Zeego](https://zeego.dev/) - Beautiful, native menus for React Native + Web
 - [@react-native-menu/menu](https://github.com/react-native-menu/menu) - UIMenu Component for React Native
-
-The plugin enhances the native Android menu appearance while maintaining compatibility with these popular menu libraries.
 
 ## Quick Start
 
@@ -73,13 +70,13 @@ expo-android-native-menu/
 
 The plugin accepts the following configuration options:
 
-| Option               | Type   | Default   | Description                                                                                                                                                                                                           |
-| -------------------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| radius               | number | 14        | Border radius in dp                                                                                                                                                                                                   |
-| lightBackgroundColor | string | "#FFFFFF" | Background color for light theme                                                                                                                                                                                      |
-| darkBackgroundColor  | string | "#000000" | Background color for dark theme                                                                                                                                                                                       |
-| paddingVertical      | number | 14        | Vertical padding in dp                                                                                                                                                                                                |
-| paddingHorizontal    | number | 0         | Horizontal padding in dp. Note: Keep this at 0 to maintain the native Android ripple effect. Adding horizontal padding will create a visible gap between the ripple effect and the menu edge when an item is pressed. |
+| Option               | Type   | Default   | Description                                                                                                                                                                   |
+| -------------------- | ------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| radius               | number | 14        | Border radius in dp                                                                                                                                                           |
+| lightBackgroundColor | string | "#FFFFFF" | Background color for light theme                                                                                                                                              |
+| darkBackgroundColor  | string | "#000000" | Background color for dark theme                                                                                                                                               |
+| paddingVertical      | number | 14        | Vertical padding in dp                                                                                                                                                        |
+| paddingHorizontal    | number | 0         | Horizontal padding in dp. Note: Keep this at 0 to maintain the native Android ripple effect. On press, the padding will be visible as the ripple effect won't touch the edge. |
 
 ## Implementation Details
 
