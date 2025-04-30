@@ -11,10 +11,20 @@ const path = require("node:path");
  * @param {string} [options.darkBackgroundColor='#000000'] - Background color for dark theme
  * @param {number} [options.paddingVertical=14] - Vertical padding in dp
  * @param {number} [options.paddingHorizontal=0] - Horizontal padding in dp
+ * @param {boolean} [options.disableStroke=true] - Disable stroke
+ * @param {boolean} [options.disableElevation=false] - Disable elevation
+ * @param {string} [options.lightStrokeColor='#f5f5f5'] - Stroke color for light theme
+ * @param {string} [options.darkStrokeColor='#212121'] - Stroke color for dark theme
+ * @param {number} [options.strokeWidth=2] - Stroke width
  * @returns {import('@expo/config-types').ExpoConfig} - Modified Expo config
  */
 const withRoundedPopupMenu = (config, options = {}) => {
   const radius = options.radius || 14;
+  const lightStrokeColor = options.lightStrokeColor || "#f5f5f5";
+  const darkStrokeColor = options.darkStrokeColor || "#212121";
+  const strokeWidth = options.strokeWidth || 2;
+  const disableStroke = options.disableStroke !== undefined ? options.disableStroke : true;
+  const disableElevation = options.disableElevation !== undefined ? options.disableElevation : false;
   const lightBackgroundColor = options.lightBackgroundColor || "#FFFFFF";
   const darkBackgroundColor = options.darkBackgroundColor || "#000000";
   const paddingVertical = options.paddingVertical || 14;
@@ -40,6 +50,13 @@ const withRoundedPopupMenu = (config, options = {}) => {
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="${lightBackgroundColor}" />
     <corners android:radius="${radius}dp" />
+    ${
+      disableStroke
+        ? ""
+        : `<stroke
+      android:width="${strokeWidth}dp"
+      android:color="${lightStrokeColor}" />`
+    }
     <padding
         android:bottom="${paddingVertical}dp"
         android:top="${paddingVertical}dp"
@@ -51,6 +68,13 @@ const withRoundedPopupMenu = (config, options = {}) => {
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="${darkBackgroundColor}" />
     <corners android:radius="${radius}dp" />
+    ${
+      disableStroke
+        ? ""
+        : `<stroke
+      android:width="${strokeWidth}dp"
+      android:color="${darkStrokeColor}" />`
+    }
     <padding
         android:bottom="${paddingVertical}dp"
         android:top="${paddingVertical}dp"
@@ -83,9 +107,10 @@ const withRoundedPopupMenu = (config, options = {}) => {
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:popupMenuStyle">@style/RoundedPopupMenuStyle</item>
     </style>
-    
+
     <style name="RoundedPopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@drawable/rounded_popup</item>
+        ${disableElevation ? `<item name="android:popupElevation">0dp</item>` : ""}
     </style>
 </resources>`;
 
